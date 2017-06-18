@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<dataset>
+  <enumerables>
+    <enumerable key="PERSONALITY">
+      <enumpair key="3" value="Quiet" />
+      <enumpair key="5" value="Frisky" />
+      <enumpair key="7" value="Joyful" />
+      <enumpair key="8" value="Ordinary" />
+      <enumpair key="9" value="Irritated" />
+      <enumpair key="10" value="Harsh" />
+      <enumpair key="11" value="Sweet" />
+      <enumpair key="15" value="Aloof" />
+      <enumpair key="16" value="Smart" />
+      <enumpair key="17" value="Genuine" />
+      <enumpair key="21" value="Gentle (M)" />
+      <enumpair key="24" value="Savage (M)" />
+      <enumpair key="26" value="Caring" />
+    </enumerable>
+  </enumerables>
+</dataset>

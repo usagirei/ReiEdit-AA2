@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Add Replacements/New Enumerables to this File, and remove the disabled extension -->
+<dataset>
+  <enumerables>
+    <enumerable key="PERSONALITY">
+      <!-- Adding a Existing key will replace it -->
+      <enumpair key="25" value="New Name for Cadet" />
+      <!-- Adding a new key will add it -->
+      <enumpair key="26" value="Completely New Personality" />
+    </enumerable>
+  </enumerables>
+</dataset>

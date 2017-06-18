@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<dataset>
+  <enumerables>
+    <enumerable key="PERSONALITY">
+      <enumpair key="25" value="Cadet" />
+    </enumerable>
+  </enumerables>
+</dataset>

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<random>
+  <items>
+    <item kind="lovers">Marriage Registration Form</item>
+    <item kind="lovers">Engagement Ring</item>
+    <item kind="lovers">Homemade Bento</item>
+    <item kind="lovers">Deluxe Bento</item>
+    <item kind="lovers">Extravagant Bento</item>
+    <item kind="lovers">Hazardous Bento</item>
+    <item kind="lovers">Terrible Bento</item>
+    <item kind="lovers">Bento with 3 Servings</item>
+    <item kind="lovers">Socks</item>
+    <item kind="lovers">Expensive Ring</item>
+    <item kind="lovers">Toy Ring</item>
+    <item kind="lovers">Romance Novel</item>
+    <item kind="lovers">Mabinogion</item>
+    <item kind="lovers">Partially Drank Juice</item>
+    <item kind="lovers">Lip Balm</item>
+    <item kind="lovers">E-Mail Address</item>
+    <item kind="lovers">Childhood Photo</item>
+    <item kind="lovers">Old Pocketwatch</item>
+    <item kind="lovers">Selfie</item>
+    <item kind="lovers">Rosary</item>
+    <item kind="lovers">Flute</item>
+    <item kind="lovers" gender="female">Small Bra</item>
+    <item kind="lovers">Hair Scrunchy</item>
+    <item kind="lovers">Skull Ring</item>
+    <item kind="lovers">Key to Somewhere</item>
+    <item kind="lovers">Drawn-over Manga</item>
+    <item kind="lovers" gender="female">Hello Bear Panties</item>
+    <item kind="lovers" gender="male">Old Jersey</item>
+    <item kind="lovers">Laxatives</item>
+    <item kind="lovers">Used Lip Balm</item>
+    <item kind="lovers">Book on Pet Care</item>
+    <item kind="lovers" gender="female">Frilly Apron</item>
+    <item kind="lovers">Folded Umbrella</item>
+    <item kind="lovers">Expensive Watch</item>
+    <item kind="lovers">Brand-Name Wallet</item>
+    <item kind="lovers">Scary Cookies</item>
+    <item kind="lovers">Safe Labor Amulet</item>
+    <item kind="lovers">Tuna-Flavored Cat Food</item>
+    <item kind="lovers" gender="female">Recently Worn Panties</item>
+    <item kind="lovers">Love Letter</item>
+    <item kind="lovers">Tarot Cards</item>
+    <item kind="lovers">Movie Tickets</item>
+    <item kind="lovers">Amusement Park Ticket</item>
+    <item kind="lovers">Nail Clippings</item>
+    <item kind="lovers">Bouquet of Purple Roses</item>
+    <item kind="lovers">Bandages</item>
+    <item kind="lovers">Resume</item>
+    <item kind="lovers">Air Freshener</item>
+    <item kind="lovers">Aphrodisiac-laced Bento</item>
+    <item kind="lovers">Mysterious White Liquid</item>
+    <item kind="lovers">Ripe Banana</item>
+  </items>
+</random>

@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="ReiEditAA2.Views.Partial.PregnancyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:ReiEditAA2.Converters" xmlns:aa2Lib="clr-namespace:AA2Lib;assembly=AA2Lib"
+             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300" x:ClassModifier="internal">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5,3" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid
+            DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=CharacterViewModel}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Row="0" MinHeight="50" Header="Pregnancy Risk">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Week 1" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Week 2" />
+                    <UniformGrid Grid.Column="1" Grid.Row="0" Columns="7">
+                        <TextBlock Text="Sunday" />
+                        <TextBlock Text="Monday" />
+                        <TextBlock Text="Tuesday" />
+                        <TextBlock Text="Wednessday" />
+                        <TextBlock Text="Thursday" />
+                        <TextBlock Text="Friday" />
+                        <TextBlock Text="Saturday" />
+                    </UniformGrid>
+                    <ItemsControl Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" x:Name="PregsControl"
+                                  ItemsSource="{Binding Path=Pregnancy}" HorizontalAlignment="Stretch"
+                                  ItemTemplate="{x:Static aa2Lib:Core+DataTemplates.EnumDataTemplate}">
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="Margin" Value="1" />
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="7" HorizontalAlignment="Stretch" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Row="1" MinHeight="50" Header="Compatibility">
+                <GroupBox.Resources>
+                    <SolidColorBrush x:Key="GridBrush">#D5DFE5</SolidColorBrush>
+                </GroupBox.Resources>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" BorderBrush="{StaticResource GridBrush}" BorderThickness="1,1,1,0"
+                            Margin="3,3,3,0" CornerRadius="3,3,0,0">
+                        <TextBlock Text="Seats Laid-Out as Ingame Roster" HorizontalAlignment="Center" />
+                    </Border>
+                    <Border Grid.Row="1" BorderBrush="{StaticResource GridBrush}" BorderThickness="0,0,1,1"
+                            Margin="3,0,3,3">
+                        <ItemsControl x:Name="CompatControl" ItemsSource="{Binding Path=Compatibility}"
+                                      HorizontalAlignment="Stretch">
+                            <ItemsControl.Resources>
+                                <converters:CharNameConverter x:Key="CharNameConverter"
+                                                              CharacterCollection="{Binding Path=ParentCollection}" />
+                            </ItemsControl.Resources>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{StaticResource GridBrush}" BorderThickness="1,1,0,0">
+                                        <StackPanel>
+                                            <TextBlock HorizontalAlignment="Center" FontSize="10"
+                                                       Text="{Binding Path=Key, Converter={StaticResource CharNameConverter}, ConverterParameter='COMPATIBILITY_N(?&lt;value&gt;\\d+)'}" />
+                                            <ContentPresenter Margin="2"
+                                                              ContentTemplate="{x:Static aa2Lib:Core+DataTemplates.Int32FDataTemplate}" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="5" HorizontalAlignment="Stretch" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Border>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

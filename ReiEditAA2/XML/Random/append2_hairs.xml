@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<random>
+  <hairs>
+    <!-- Front Hair -->
+    <hair kind="front" id="54" flip="false" />
+    <hair kind="front" id="55" flip="true" />
+    <hair kind="front" id="56" flip="true" />
+    <hair kind="front" id="57" flip="true" />
+    <hair kind="front" id="58" flip="true" />
+    <!-- Side Hair -->
+    <hair kind="side" id="31" flip="false" />
+    <hair kind="side" id="32" flip="false" />
+    <!-- Back Hair -->
+    <hair kind="back" id="64" flip="false" />
+    <hair kind="back" id="65" flip="false" />
+    <!-- Extension Hair -->
+    <hair kind="extension" id="30" flip="false" />
+    <hair kind="extension" id="31" flip="false" />
+    <hair kind="extension" id="32" flip="true" />
+  </hairs>
+</random>

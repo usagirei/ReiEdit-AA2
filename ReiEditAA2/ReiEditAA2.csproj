@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{00CE96CE-45FA-45A9-A60B-C68D30FA1BBD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReiEditAA2</RootNamespace>
+    <AssemblyName>ReiEditAA2</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Code\BackgroundEffect.cs" />
+    <Compile Include="Code\Modifiers\BodyDeviationCharRandomizer.cs" />
+    <Compile Include="Code\CardGenerator.Constants.cs">
+      <DependentUpon>CardGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\CardGenerator.cs" />
+    <Compile Include="Code\CardGenerator.Loading.cs">
+      <DependentUpon>CardGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DataBlockWrapperBuffer.cs" />
+    <Compile Include="Code\CharacterViewModelProviders\FileSystemCharacterViewModelProvider.cs" />
+    <Compile Include="Code\CharacterViewModelProviders\SaveFileCharacterViewModelProvider.cs" />
+    <Compile Include="Code\DataBlockConstraints.cs" />
+    <Compile Include="Code\ClipboardHelper.cs" />
+    <Compile Include="Code\Modifiers\CardGeneratorModifier.cs" />
+    <Compile Include="Code\CharacterHairProvider.cs" />
+    <Compile Include="Code\Modifiers\FriendItemsCharRandomizer.cs" />
+    <Compile Include="Code\Modifiers\HairColorRandomizer.cs" />
+    <Compile Include="Code\Modifiers\CharModifierBase.cs" />
+    <Compile Include="Code\Modifiers\HairShapeRandomizer.cs" />
+    <Compile Include="Code\Modifiers\ImportModifier.cs" />
+    <Compile Include="Code\Modifiers\LoverItemsCharRandomizer.cs" />
+    <Compile Include="Plugins\PluginCharacterProxy.cs" />
+    <Compile Include="Code\Modifiers\PluginModifier.cs" />
+    <Compile Include="Code\ProfileItemProvider.cs" />
+    <Compile Include="Code\Modifiers\SexualItemsCharRandomizer.cs" />
+    <Compile Include="Code\StandardDeviation.cs" />
+    <Compile Include="Converters\CharNameConverter.cs" />
+    <Compile Include="Converters\KeyIndentConverter.cs" />
+    <Compile Include="Plugins\PluginMenu.cs" />
+    <None Include="Plugins\SamplePlugin.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="Plugins\PluginBase.cs" />
+    <Compile Include="Plugins\PluginLoader.cs" />
+    <Compile Include="ViewModels\SaveHeaderViewModel.cs" />
+    <Compile Include="Views\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CrashWindow.xaml.cs">
+      <DependentUpon>CrashWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FSProvider.InfoExporter.xaml.cs">
+      <DependentUpon>FSProviderTools.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FSProviderTools.BatchRenamer.xaml.cs">
+      <DependentUpon>FSProviderTools.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FSProviderTools.xaml.cs">
+      <DependentUpon>FSProviderTools.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HeaderEditor.xaml.cs">
+      <DependentUpon>HeaderEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImportWindow.xaml.cs">
+      <DependentUpon>ImportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Partial\BodyView.xaml.cs">
+      <DependentUpon>BodyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Partial\ClothesView.xaml.cs">
+      <DependentUpon>ClothesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Partial\PreferencesView.xaml.cs">
+      <DependentUpon>PreferencesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Partial\PregnancyView.xaml.cs">
+      <DependentUpon>PregnancyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Partial\ProfileView.xaml.cs">
+      <DependentUpon>ProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Partial\TextureView.xaml.cs">
+      <DependentUpon>TextureView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Partial\UniformView.xaml.cs">
+      <DependentUpon>UniformView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Code\CharacterViewModelProviders\CharacterProviderDelegates.cs" />
+    <Compile Include="Code\CharacterViewModelProviders\ICharacterViewModelProvider.cs" />
+    <Compile Include="ViewModels\BodyViewModel.cs" />
+    <Compile Include="ViewModels\BodyViewModel.FaceSection.cs">
+      <DependentUpon>BodyViewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BodyViewModel.HairSection.cs">
+      <DependentUpon>BodyViewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ClothesTextureViewModel.cs" />
+    <Compile Include="ViewModels\CharacterViewModel.cs" />
+    <Compile Include="ViewModels\ClothesViewModel.cs" />
+    <Compile Include="ViewModels\ProfileViewModel.cs" />
+    <Page Include="Views\AboutWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CrashWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FSProviderTools.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HeaderEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Partial\BodyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Partial\ClothesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Partial\PreferencesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Partial\PregnancyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Partial\ProfileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Partial\TextureView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Partial\UniformView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\CharacterCollection.cs" />
+    <Compile Include="Code\CharAttributeHelper.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
+    <Compile Include="ViewModels\BodyViewModel.BodySection.cs">
+      <DependentUpon>BodyViewModel.cs</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <EmbeddedResource Include="XML\random.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AA2Lib\AA2Lib.csproj">
+      <Project>{ab7a8717-70cb-402c-8ab4-0f384b997456}</Project>
+      <Name>AA2Lib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReiFX\ReiFX.csproj">
+      <Project>{003e6c96-8982-41ca-89ce-e4ad6fad32ad}</Project>
+      <Name>ReiFX</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Displacement.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XML\Random\default_sexual.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XML\Random\default_lovers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XML\Random\default_friends.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\About.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TODO.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XML\Random\default_hairs.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XML\Random\preorder_hairs.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XML\Random\special_hairs.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XML\Random\append1_hairs.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="XML\Random\append2_hairs.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

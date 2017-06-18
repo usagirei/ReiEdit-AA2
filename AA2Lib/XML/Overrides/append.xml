@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<dataset>
+  <enumerables>
+    <enumerable key="PERSONALITY">
+      <enumpair key="26" value="Caring" />
+      <enumpair key="27" value="Schemer (M)" />
+    </enumerable>
+    <enumerable key="CLOTHES_F">
+      <enumpair key="4" value="Blazer" />
+      <enumpair key="5" value="Naked" />
+      <enumpair key="6" value="Underwear" />
+    </enumerable>
+    <enumerable key="CLOTHES_M">
+      <enumpair key="3" value="Naked" />
+    </enumerable>
+  </enumerables>
+</dataset>

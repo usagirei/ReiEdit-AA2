@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<random>
+  <hairs>
+    <!-- Front Hair -->
+    <hair kind="front" id="0" />
+    <hair kind="front" id="1" />
+    <hair kind="front" id="2" />
+    <hair kind="front" id="3" flip="true" />
+    <hair kind="front" id="4" />
+    <hair kind="front" id="5" />
+    <hair kind="front" id="6" flip="true" />
+    <hair kind="front" id="7" flip="true" />
+    <hair kind="front" id="8" />
+    <hair kind="front" id="9" />
+    <hair kind="front" id="10" flip="true" />
+    <hair kind="front" id="11" />
+    <hair kind="front" id="12" flip="true" />
+    <hair kind="front" id="13" />
+    <hair kind="front" id="14" />
+    <hair kind="front" id="15" />
+    <hair kind="front" id="16" />
+    <hair kind="front" id="17" />
+    <hair kind="front" id="18" flip="true" />
+    <hair kind="front" id="19" />
+    <hair kind="front" id="20" flip="true" />
+    <hair kind="front" id="21" />
+    <hair kind="front" id="22" />
+    <hair kind="front" id="23" />
+    <hair kind="front" id="24" />
+    <hair kind="front" id="25" />
+    <hair kind="front" id="26" flip="true" />
+    <hair kind="front" id="27" flip="true" />
+    <hair kind="front" id="28" />
+    <hair kind="front" id="29" />
+    <hair kind="front" id="30" />
+    <hair kind="front" id="31" />
+    <hair kind="front" id="32" flip="true" />
+    <hair kind="front" id="33" flip="true" />
+    <hair kind="front" id="34" flip="true" />
+    <hair kind="front" id="35" flip="true" />
+    <hair kind="front" id="36" />
+    <hair kind="front" id="37" flip="true" />
+    <hair kind="front" id="38" />
+    <hair kind="front" id="39" />
+    <hair kind="front" id="40" />
+    <hair kind="front" id="41" />
+    <hair kind="front" id="42" />
+    <hair kind="front" id="43" flip="true" />
+    <hair kind="front" id="44" />
+    <hair kind="front" id="45" />
+    <!-- Side Hair -->
+    <hair kind="side" id="0" />
+    <hair kind="side" id="1" />
+    <hair kind="side" id="2" />
+    <hair kind="side" id="3" />
+    <hair kind="side" id="4" />
+    <hair kind="side" id="5" />
+    <hair kind="side" id="6" />
+    <hair kind="side" id="7" />
+    <hair kind="side" id="8" />
+    <hair kind="side" id="9" />
+    <hair kind="side" id="10" />
+    <hair kind="side" id="11" />
+    <hair kind="side" id="12" />
+    <hair kind="side" id="13" />
+    <hair kind="side" id="14" />
+    <hair kind="side" id="15" />
+    <hair kind="side" id="16" />
+    <hair kind="side" id="17" />
+    <hair kind="side" id="18" />
+    <hair kind="side" id="19" />
+    <hair kind="side" id="20" />
+    <hair kind="side" id="21" />
+    <hair kind="side" id="22" />
+    <hair kind="side" id="23" />
+    <hair kind="side" id="24" />
+    <hair kind="side" id="25" />
+    <hair kind="side" id="26" />
+    <hair kind="side" id="27" />
+    <hair kind="side" id="28" />
+    <!-- Back Hair -->
+    <hair kind="back" id="0" />
+    <hair kind="back" id="1" />
+    <hair kind="back" id="2" />
+    <hair kind="back" id="3" />
+    <hair kind="back" id="4" />
+    <hair kind="back" id="5" />
+    <hair kind="back" id="6" />
+    <hair kind="back" id="7" />
+    <hair kind="back" id="8" />
+    <hair kind="back" id="9" />
+    <hair kind="back" id="10" />
+    <hair kind="back" id="11" />
+    <hair kind="back" id="12" />
+    <hair kind="back" id="13" />
+    <hair kind="back" id="14" />
+    <hair kind="back" id="15" />
+    <hair kind="back" id="16" />
+    <hair kind="back" id="17" />
+    <hair kind="back" id="18" />
+    <hair kind="back" id="19" />
+    <hair kind="back" id="20" />
+    <hair kind="back" id="21" />
+    <hair kind="back" id="22" />
+    <hair kind="back" id="23" />
+    <hair kind="back" id="24" />
+    <hair kind="back" id="25" />
+    <hair kind="back" id="26" />
+    <hair kind="back" id="27" />
+    <hair kind="back" id="28" />
+    <hair kind="back" id="29" />
+    <hair kind="back" id="30" />
+    <hair kind="back" id="31" />
+    <hair kind="back" id="32" />
+    <hair kind="back" id="33" />
+    <hair kind="back" id="34" />
+    <hair kind="back" id="35" />
+    <hair kind="back" id="36" />
+    <hair kind="back" id="37" />
+    <hair kind="back" id="38" />
+    <hair kind="back" id="39" />
+    <hair kind="back" id="40" flip="true" />
+    <hair kind="back" id="41" flip="true" />
+    <hair kind="back" id="42" flip="true" />
+    <hair kind="back" id="43" />
+    <hair kind="back" id="44" />
+    <hair kind="back" id="45" />
+    <hair kind="back" id="46" />
+    <hair kind="back" id="47" />
+    <hair kind="back" id="48" />
+    <hair kind="back" id="49" />
+    <hair kind="back" id="50" />
+    <hair kind="back" id="51" />
+    <hair kind="back" id="52" />
+    <hair kind="back" id="53" />
+    <hair kind="back" id="54" />
+    <hair kind="back" id="55" />
+    <!-- Extension Hair -->
+    <hair kind="extension" id="0" />
+    <hair kind="extension" id="1" flip="true" />
+    <hair kind="extension" id="2" />
+    <hair kind="extension" id="3" flip="true" />
+    <hair kind="extension" id="4" />
+    <hair kind="extension" id="5" />
+    <hair kind="extension" id="6" />
+    <hair kind="extension" id="7" />
+    <hair kind="extension" id="8" />
+    <hair kind="extension" id="9" />
+    <hair kind="extension" id="10" flip="true" />
+    <hair kind="extension" id="11" />
+    <hair kind="extension" id="12" />
+    <hair kind="extension" id="13" />
+    <hair kind="extension" id="14" />
+    <hair kind="extension" id="15" flip="true" />
+    <hair kind="extension" id="16" />
+    <hair kind="extension" id="17" />
+    <hair kind="extension" id="18" />
+    <hair kind="extension" id="19" />
+    <hair kind="extension" id="20" flip="true" />
+    <hair kind="extension" id="21" />
+    <hair kind="extension" id="22" />
+    <hair kind="extension" id="23" />
+    <hair kind="extension" id="24" flip="true" />
+    <hair kind="extension" id="25" flip="true" />
+    <hair kind="extension" id="26" />
+  </hairs>
+</random>

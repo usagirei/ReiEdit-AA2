@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!--Item Kind-->
+  <xs:simpleType name="dt_itemKind">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="lovers" />
+      <xs:enumeration value="friend" />
+      <xs:enumeration value="sexual" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!--Hair Kind-->
+  <xs:simpleType name="dt_hairKind">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="front" />
+      <xs:enumeration value="side" />
+      <xs:enumeration value="back" />
+      <xs:enumeration value="extension" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!--Gender Enumerable-->
+  <xs:simpleType name="dt_itemGender">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="any" />
+      <xs:enumeration value="male" />
+      <xs:enumeration value="female" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!--Item DataType-->
+  <xs:complexType name="dt_item">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="kind" type="dt_itemKind" use="required" />
+        <xs:attribute name="gender" type="dt_itemGender" use="optional" default="any" />
+        <xs:attribute name="personality" type="xs:string" use="optional" default="-1" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <!--Hair DataType-->
+  <xs:complexType name="dt_hair">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="kind" type="dt_hairKind" use="required" />
+        <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+        <xs:attribute name="flip" type="xs:boolean" use="optional" default="false" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <!--Core-->
+  <xs:element name="random">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="items" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="item" type="dt_item" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="hairs" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="hair" type="dt_hair" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

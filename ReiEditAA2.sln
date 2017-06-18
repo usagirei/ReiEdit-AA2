@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReiEditAA2", "ReiEditAA2\ReiEditAA2.csproj", "{00CE96CE-45FA-45A9-A60B-C68D30FA1BBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AA2Lib", "AA2Lib\AA2Lib.csproj", "{AB7A8717-70CB-402C-8AB4-0F384B997456}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReiFX", "ReiFX\ReiFX.csproj", "{003E6C96-8982-41CA-89CE-E4AD6FAD32AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00CE96CE-45FA-45A9-A60B-C68D30FA1BBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00CE96CE-45FA-45A9-A60B-C68D30FA1BBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00CE96CE-45FA-45A9-A60B-C68D30FA1BBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00CE96CE-45FA-45A9-A60B-C68D30FA1BBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB7A8717-70CB-402C-8AB4-0F384B997456}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB7A8717-70CB-402C-8AB4-0F384B997456}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB7A8717-70CB-402C-8AB4-0F384B997456}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB7A8717-70CB-402C-8AB4-0F384B997456}.Release|Any CPU.Build.0 = Release|Any CPU
+		{003E6C96-8982-41CA-89CE-E4AD6FAD32AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{003E6C96-8982-41CA-89CE-E4AD6FAD32AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{003E6C96-8982-41CA-89CE-E4AD6FAD32AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{003E6C96-8982-41CA-89CE-E4AD6FAD32AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

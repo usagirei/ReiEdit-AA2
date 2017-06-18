@@ -1,0 +1,555 @@
+﻿<UserControl x:Class="ReiEditAA2.Views.Partial.BodyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:system="clr-namespace:System;assembly=mscorlib" xmlns:code="clr-namespace:ReiEditAA2.Code"
+             xmlns:code1="clr-namespace:AA2Lib.Code;assembly=AA2Lib"
+             xmlns:converters="clr-namespace:AA2Lib.Converters;assembly=AA2Lib" mc:Ignorable="d" d:DesignHeight="600"
+             d:DesignWidth="600" x:ClassModifier="internal">
+    <UserControl.Resources>
+        <Style TargetType="ContentControl">
+            <Setter Property="code:CharAttributeHelper.Character"
+                    Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=CharacterViewModel.Character}" />
+            <Setter Property="Margin" Value="0,3" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="TextureComboItem" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <ContentPresenter.ContentTemplate>
+                                    <DataTemplate DataType="{x:Type code1:TextureWatcher+TextureElement}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border x:Name="ImgBorder" BorderThickness="1" BorderBrush="Black"
+                                                    Margin="2" VerticalAlignment="Center">
+                                                <Image x:Name="Img" Width="40" Height="40" Stretch="Uniform"
+                                                       RenderOptions.BitmapScalingMode="HighQuality"
+                                                       Source="{Binding Path=Image}" />
+                                            </Border>
+                                            <TextBlock Grid.Column="1" Margin="3,0" Text="{Binding Path=Name}"
+                                                       VerticalAlignment="Center" />
+                                        </Grid>
+                                        <DataTemplate.Triggers>
+                                            <Trigger SourceName="Img" Property="Source" Value="{x:Null}">
+                                                <Setter TargetName="ImgBorder" Property="Visibility" Value="Collapsed" />
+                                            </Trigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </ContentPresenter.ContentTemplate>
+                            </ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="Bd" Property="Background"
+                                        Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                                <Setter Property="Foreground"
+                                        Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground"
+                                        Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <converters:ComparisonConverter x:Key="TrueFalseComparisonConverter" />
+        <system:Byte x:Key="MaleByte">1</system:Byte>
+    </UserControl.Resources>
+    <Grid
+        DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=CharacterViewModel.Body}">
+        <TabControl>
+            <TabItem Header="Body" DataContext="{Binding Path=BodyPart}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <GroupBox Header="Body" Grid.Row="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Head Size:" />
+                                <ContentControl Grid.Row="0" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=HeadSize.Key}" />
+                                <TextBlock Grid.Row="0" Grid.Column="2" Text="Height:" />
+                                <ContentControl Grid.Row="0" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=Height.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Head Length:" />
+                                <ContentControl Grid.Row="1" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=HeadHeight.Key}" />
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="Figure:" />
+                                <ContentControl Grid.Row="1" Grid.Column="3" x:Name="FigureControl"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=Figure.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Waist:" />
+                                <ContentControl Grid.Row="2" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=Waist.Key}" />
+                                <TextBlock Grid.Row="2" Grid.Column="2" Text="Skin Color:" />
+                                <ContentControl Grid.Row="2" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=SkinColor.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Tan Opacity:" />
+                                <ContentControl Grid.Row="3" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=TanOpacity.Key}" />
+                                <TextBlock Grid.Row="3" Grid.Column="2" Text="Tan Mark:" />
+                                <Decorator Grid.Row="3" Grid.Column="3">
+                                    <ContentControl code:CharAttributeHelper.Attribute="{Binding Path=TanMark.Key}">
+                                        <ContentControl.IsEnabled>
+                                            <Binding Path="BodyViewModel.CharacterViewModel.Profile.Gender.Value"
+                                                     Converter="{StaticResource 
+                                                TrueFalseComparisonConverter}"
+                                                     ConverterParameter="{StaticResource MaleByte}" />
+                                        </ContentControl.IsEnabled>
+                                    </ContentControl>
+                                </Decorator>
+                                <!-- -->
+                                <!-- -->
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="Pubic Region" Grid.Row="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Hair Opacity:" />
+                                <ContentControl Grid.Row="0" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=PubicHairOpacity.Key}" />
+                                <TextBlock Grid.Row="0" Grid.Column="2" Text="Hair Color:" />
+                                <ContentControl Grid.Row="0" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=PubicHairColor.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="Hair Shape:" />
+                                <ContentControl Grid.Row="1" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=PubicHairShape.Key}" />
+                                <TextBlock Grid.Row="2" Grid.Column="2" Text="Mosaic:" />
+                                <ContentControl Grid.Row="2" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=PussyMosaicColor.Key}" />
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="Breasts" Grid.Row="2">
+                            <GroupBox.IsEnabled>
+                                <Binding Path="BodyViewModel.CharacterViewModel.Profile.Gender.Value"
+                                         Converter="{StaticResource 
+                                                TrueFalseComparisonConverter}"
+                                         ConverterParameter="{StaticResource MaleByte}" />
+                            </GroupBox.IsEnabled>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Size:" />
+                                <ContentControl Grid.Row="0" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=BreastSize.Key}" />
+                                <TextBlock Grid.Row="0" Grid.Column="2" Text="Rank:" />
+                                <ContentControl Grid.Row="0" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=BreastRank.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Roundness:" />
+                                <ContentControl Grid.Row="1" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=BreastRoundness.Key}" />
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="Firmness:" />
+                                <ContentControl Grid.Row="1" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=BreastFirmness.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Spacing:" />
+                                <ContentControl Grid.Row="2" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=BreastSpacing.Key}" />
+                                <TextBlock Grid.Row="2" Grid.Column="2" Text="Shape:" />
+                                <ContentControl Grid.Row="2" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=BreastShape.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Height:" />
+                                <ContentControl Grid.Row="3" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=BreastHeight.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Depth:" />
+                                <ContentControl Grid.Row="4" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=BreastDepth.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="Direction:" />
+                                <ContentControl Grid.Row="5" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=BreastDirection.Key}" />
+                                <!-- -->
+                                <Border Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="-4,3" Height="3"
+                                        Background="#D5DFE5" BorderThickness="0,1" BorderBrush="White" />
+                                <!-- -->
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="Areola Size:" />
+                                <ContentControl Grid.Row="7" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=NippleSize.Key}" />
+                                <TextBlock Grid.Row="7" Grid.Column="2" Text="Nipple Type:" />
+                                <ContentControl Grid.Row="7" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=NippleType.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="8" Grid.Column="0" Text="Nipple Opacity:" />
+                                <ContentControl Grid.Row="8" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=NippleOpacity.Key}" />
+                                <TextBlock Grid.Row="8" Grid.Column="2" Text="Nipple Color:" />
+                                <ContentControl Grid.Row="8" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=NippleColor.Key}" />
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Face">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                              Margin="0,8,0,-8">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0" Header="Face" DataContext="{Binding Path=FacePart}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Face Type" />
+                                <ContentControl Grid.Row="0" Grid.Column="1" x:Name="FaceTypeControl"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=FaceType.Key}" />
+                                <TextBlock Grid.Row="0" Grid.Column="2" Text="Eyelid:" />
+                                <ContentControl Grid.Row="0" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=.Eyelid.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Eyebrow Angle:" />
+                                <ContentControl Grid.Row="1" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=EyebrowAngle.Key}" />
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="Upper Eyelid:" />
+                                <ContentControl Grid.Row="1" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=UpperEyelid.Key}" />
+
+                                <!-- -->
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Eyebrow Color:" />
+                                <ContentControl Grid.Row="2" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=.EyebrowColor.Key}" />
+                                <TextBlock Grid.Row="2" Grid.Column="2" Text="Lower Eyelid:" />
+                                <ContentControl Grid.Row="2" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=.LowerEyelid.Key}" />
+
+                                <!-- -->
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Eyebrow Shape:" />
+                                <ContentControl Grid.Row="3" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=EyebrowShape.Key}" />
+
+                                <!-- -->
+                                <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="-4,3" Height="3"
+                                        Background="#D5DFE5" BorderThickness="0,1" BorderBrush="White" />
+                                <!-- -->
+
+                                <!-- -->
+                                <Grid Grid.Row="5" Grid.ColumnSpan="4" Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <ToggleButton Grid.Column="0" IsChecked="{Binding Path=CheekboneMoleLeft.Value}"
+                                                  Margin="0,0,2,0" VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border BorderBrush="Black" BorderThickness="1" Margin="5,0">
+                                                <Image
+                                                    Source="pack://application:,,,/AA2Lib;component\Resources\MOLE_CBL.png"
+                                                    Stretch="None" />
+                                            </Border>
+                                            <TextBlock Text="Cheek Mole A" />
+                                        </StackPanel>
+                                    </ToggleButton>
+                                    <ToggleButton Grid.Column="1" IsChecked="{Binding Path=CheekboneMoleRight.Value}"
+                                                  Margin="2,0" VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border BorderBrush="Black" BorderThickness="1" Margin="5,0">
+                                                <Image
+                                                    Source="pack://application:,,,/AA2Lib;component\Resources\MOLE_CBR.png"
+                                                    Stretch="None" />
+                                            </Border>
+                                            <TextBlock Text="Cheek Mole B" />
+                                        </StackPanel>
+                                    </ToggleButton>
+                                    <ToggleButton Grid.Column="2" IsChecked="{Binding Path=ChinMoleLeft.Value}"
+                                                  Margin="2,0" VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border BorderBrush="Black" BorderThickness="1" Margin="5,0">
+                                                <Image
+                                                    Source="pack://application:,,,/AA2Lib;component\Resources\MOLE_CHL.png"
+                                                    Stretch="None" />
+                                            </Border>
+                                            <TextBlock Text="Chin Mole A" />
+                                        </StackPanel>
+                                    </ToggleButton>
+                                    <ToggleButton Grid.Column="3" IsChecked="{Binding Path=ChinMoleRight.Value}"
+                                                  Margin="2,0,0,0" VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border BorderBrush="Black" BorderThickness="1" Margin="5,0">
+                                                <Image
+                                                    Source="pack://application:,,,/AA2Lib;component\Resources\MOLE_CHR.png"
+                                                    Stretch="None" />
+                                            </Border>
+                                            <TextBlock Text="Chin Mole B" />
+                                        </StackPanel>
+                                    </ToggleButton>
+                                </Grid>
+
+                                <!-- -->
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="Glasses:" />
+                                <ContentControl Grid.Row="6" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=GlassesType.Key}" />
+                                <TextBlock Grid.Row="6" Grid.Column="2" Text="Glasses Color:" />
+                                <ContentControl Grid.Row="6" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=.GlassesColor.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="Lipstick Opacity:" />
+                                <ContentControl Grid.Row="7" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=LipstickOpacity.Key}">
+                                    <ContentControl.IsEnabled>
+                                        <Binding Path="BodyViewModel.CharacterViewModel.Profile.Gender.Value"
+                                                 Converter="{StaticResource 
+                                                TrueFalseComparisonConverter}"
+                                                 ConverterParameter="{StaticResource MaleByte}" />
+                                    </ContentControl.IsEnabled>
+                                </ContentControl>
+                                <TextBlock Grid.Row="7" Grid.Column="2" Text="Lipstick Color:" />
+                                <ContentControl Grid.Row="7" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=LipstickColor.Key}">
+                                    <ContentControl.IsEnabled>
+                                        <Binding Path="BodyViewModel.CharacterViewModel.Profile.Gender.Value"
+                                                 Converter="{StaticResource 
+                                                TrueFalseComparisonConverter}"
+                                                 ConverterParameter="{StaticResource MaleByte}" />
+                                    </ContentControl.IsEnabled>
+                                </ContentControl>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Grid.Row="1" Header="Hair" DataContext="{Binding Path=HairPart}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="3*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Hair Color:" />
+                                <ContentControl Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=HairColor.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Front Hair:" />
+                                <!--<ContentControl Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=FrontHair.Key}" />-->
+                                <ComboBox x:Name="FrontHairCombo" Grid.Row="1" Grid.Column="1"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{x:Static code:CharacterHairProvider.FrontHairs}"
+                                          SelectedValuePath="Id" SelectedValue="{Binding Path=FrontHair.Value}" />
+                                <ToggleButton Grid.Row="1" Grid.Column="2" Content="Flip" Margin="2,0"
+                                              VerticalAlignment="Center" IsChecked="{Binding Path=FrontHairFlip.Value}"
+                                              IsEnabled="{Binding ElementName=FrontHairCombo, Path=SelectedItem.(code:CharacterHairProvider+CharacterHair.Flippable) }" />
+                                <TextBlock Grid.Row="1" Grid.Column="3" Text="Length:" />
+                                <ContentControl Grid.Row="1" Grid.Column="4" VerticalAlignment="Center"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=FrontHairLength.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Back Hair:" />
+                                <ComboBox x:Name="BackHairCombo" Grid.Row="2" Grid.Column="1"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{x:Static code:CharacterHairProvider.BackHairs}"
+                                          SelectedValuePath="Id" SelectedValue="{Binding Path=BackHair.Value}" />
+                                <ToggleButton Grid.Row="2" Grid.Column="2" Content="Flip" Margin="2,0"
+                                              VerticalAlignment="Center" IsChecked="{Binding Path=BackHairFlip.Value}"
+                                              IsEnabled="{Binding ElementName=BackHairCombo, Path=SelectedItem.(code:CharacterHairProvider+CharacterHair.Flippable) }" />
+                                <TextBlock Grid.Row="2" Grid.Column="3" Text="Length:" />
+                                <ContentControl Grid.Row="2" Grid.Column="4" VerticalAlignment="Center"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=BackHairLength.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Side Hair:" />
+                                <ComboBox x:Name="SideHairCombo" Grid.Row="3" Grid.Column="1"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{x:Static code:CharacterHairProvider.SideHairs}"
+                                          SelectedValuePath="Id" SelectedValue="{Binding Path=SideHair.Value}" />
+                                <ToggleButton Grid.Row="3" Grid.Column="2" Content="Flip" Margin="2,0"
+                                              VerticalAlignment="Center" IsChecked="{Binding Path=SideHairFlip.Value}"
+                                              IsEnabled="{Binding ElementName=SideHairCombo, Path=SelectedItem.(code:CharacterHairProvider+CharacterHair.Flippable) }" />
+                                <TextBlock Grid.Row="3" Grid.Column="3" Text="Length:" />
+                                <ContentControl Grid.Row="3" Grid.Column="4" VerticalAlignment="Center"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=SideHairLength.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Extension Hair:" />
+                                <ComboBox x:Name="ExtensionHairCombo" Grid.Row="4" Grid.Column="1"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{x:Static code:CharacterHairProvider.ExtensionHairs}"
+                                          SelectedValuePath="Id" SelectedValue="{Binding Path=ExtensionHair.Value}" />
+                                <ToggleButton Grid.Row="4" Grid.Column="2" Content="Flip" Margin="2,0"
+                                              VerticalAlignment="Center"
+                                              IsChecked="{Binding Path=ExtensionHairFlip.Value}"
+                                              IsEnabled="{Binding ElementName=ExtensionHairCombo, Path=SelectedItem.(code:CharacterHairProvider+CharacterHair.Flippable) }" />
+                                <TextBlock Grid.Row="4" Grid.Column="3" Text="Length:" />
+                                <ContentControl Grid.Row="4" Grid.Column="4" VerticalAlignment="Center"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=ExtensionHairLength.Key}" />
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Grid.Row="2" Header="Eyes" DataContext="{Binding Path=FacePart}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Eye Width:" />
+                                <ContentControl Grid.Row="0" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=EyeWidth.Key}" />
+                                <TextBlock Grid.Row="0" Grid.Column="2" Text="Iris Width:" />
+                                <ContentControl Grid.Row="0" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=IrisWidth.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Eye Height:" />
+                                <ContentControl Grid.Row="1" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=EyeHeight.Key}" />
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="Iris Height:" />
+                                <ContentControl Grid.Row="1" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=IrisHeight.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Eye Position:" />
+                                <ContentControl Grid.Row="2" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=EyePosition.Key}" />
+                                <TextBlock Grid.Row="2" Grid.Column="2" Text="Iris Position:" />
+                                <ContentControl Grid.Row="2" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=IrisPosition.Key}" />
+                                <!-- -->
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Eye Angle:" />
+                                <ContentControl Grid.Row="3" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=EyeAngle.Key}" />
+                                <TextBlock Grid.Row="3" Grid.Column="2" Text="Eye Spacing:" />
+                                <ContentControl Grid.Row="3" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=EyeSpacing.Key}" />
+                                <!-- -->
+                                <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="-4,3" Height="3"
+                                        Background="#D5DFE5" BorderThickness="0,1" BorderBrush="White" />
+                                <!-- -->
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="Iris Shape:" />
+                                <ContentControl Grid.Row="5" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=IrisShape.Key}" />
+                                <TextBlock Grid.Row="5" Grid.Column="2" Text="Eyes Color:" />
+                                <Grid Grid.Row="5" Grid.Column="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <ContentControl Grid.Column="0" Margin="0,0,2,0" VerticalAlignment="Center"
+                                                    code:CharAttributeHelper.Attribute="{Binding Path=LeftEyeColor.Key}" />
+                                    <ContentControl Grid.Column="1" Margin="2,0,0,0" VerticalAlignment="Center"
+                                                    code:CharAttributeHelper.Attribute="{Binding Path=RightEyeColor.Key}" />
+                                </Grid>
+                                <!-- -->
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="Iris:" />
+                                <ContentControl Grid.Row="6" Grid.Column="1"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=IrisType.Key}" />
+                                <TextBlock Grid.Row="6" Grid.Column="2" Text="Highlight:" />
+                                <ContentControl Grid.Row="6" Grid.Column="3"
+                                                code:CharAttributeHelper.Attribute="{Binding Path=EyeHighlightType.Key}" />
+                                <!-- -->
+                                <ToggleButton Grid.Row="7" Grid.Column="0" Content="Ext. Iris" Padding="3,0"
+                                              Margin="3,0" VerticalAlignment="Center"
+                                              IsChecked="{Binding Path=ExternalIrisTexture.Value}" />
+                                <ComboBox x:Name="IrisCombo" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center"
+                                          Margin="5,0,0,0" IsEditable="True" DisplayMemberPath="Name"
+                                          IsSynchronizedWithCurrentItem="True"
+                                          ItemsSource="{Binding Path=TextureWatcher[eye]}"
+                                          ItemContainerStyle="{StaticResource TextureComboItem}" />
+                                <ToggleButton Grid.Row="7" Grid.Column="2" Content="Ext. Highlight" Padding="3,0"
+                                              Margin="3,0" VerticalAlignment="Center"
+                                              IsChecked="{Binding Path=ExternalHighlightTexture.Value}" />
+                                <ComboBox x:Name="HighlightCombo" Grid.Row="7" Grid.Column="3"
+                                          VerticalAlignment="Center" Margin="5,0,0,0" IsEditable="True"
+                                          DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"
+                                          ItemsSource="{Binding Path=TextureWatcher[hilight]}"
+                                          ItemContainerStyle="{StaticResource TextureComboItem}" />
+
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

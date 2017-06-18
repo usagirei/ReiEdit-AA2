@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<dataset>
+  <enumerables>
+    <enumerable key="PERSONALITY">
+      <enumpair key="28" value="Carefree" />
+      <enumpair key="29" value="Warm" />
+    </enumerable>
+    <enumerable key="CLOTHES_F">
+      <enumpair key="7" value="Uniform 2" />
+    </enumerable>
+  </enumerables>
+</dataset>

@@ -1,0 +1,146 @@
+﻿<UserControl x:Class="ReiEditAA2.Views.Partial.UniformView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:code="clr-namespace:ReiEditAA2.Code"
+             xmlns:dataBlocks="clr-namespace:AA2Lib.Code.DataBlocks;assembly=AA2Lib"
+             xmlns:partial="clr-namespace:ReiEditAA2.Views.Partial"
+             xmlns:configMgr="clr-namespace:AA2Lib.Code.ConfigurationManager;assembly=AA2Lib" mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="600" x:ClassModifier="internal">
+    <UserControl.CommandBindings>
+        <CommandBinding Command="Paste" CanExecute="PasteCommand_CanExecute" Executed="PasteCommand_Execute" />
+        <CommandBinding Command="Copy" Executed="CopyCommand_Execute" />
+        <CommandBinding Command="Open" Executed="LoadCommand_OnExecuted" />
+        <CommandBinding Command="Save" Executed="SaveCommand_Execute" />
+        <CommandBinding Command="New" Executed="Correct_OnExecute" />
+    </UserControl.CommandBindings>
+
+    <Grid
+        DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}, Path=ClothesViewModel}">
+        <Grid.Resources>
+            <Style TargetType="{x:Type ContentControl}">
+                <Setter Property="{x:Static code:CharAttributeHelper.CharacterProperty}"
+                        Value="{Binding Path=CharacterViewModel.Character}" />
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Margin" Value="3,0" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Suit:" />
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ContentControl VerticalAlignment="Center" Margin="2" x:Name="SuitControl"
+                                code:CharAttributeHelper.Attribute="{Binding Path=Suit.Key}" />
+                <ContentControl Grid.Column="1" code:CharAttributeHelper.Attribute="{Binding Path=ShortSkirt.Key}">
+                    <code:CharAttributeHelper.DataTemplate>
+                        <DataTemplate DataType="{x:Type dataBlocks:DataBlockWrapper}">
+                            <ToggleButton IsChecked="{Binding Path=Value}" Content="Short Skirt" Padding="3,1"
+                                          Margin="2,0" VerticalAlignment="Center" />
+                        </DataTemplate>
+                    </code:CharAttributeHelper.DataTemplate>
+                </ContentControl>
+            </Grid>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="Socks:" />
+            <ContentControl Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Margin="2" x:Name="SocksControl"
+                            code:CharAttributeHelper.Attribute="{Binding Path=Socks.Key}" />
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="In Shoes:" />
+            <ContentControl Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" x:Name="InShoesControl"
+                            code:CharAttributeHelper.Attribute="{Binding Path=IndoorShoes.Key}" />
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="Out Shoes:" />
+            <ContentControl Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="2" x:Name="OutShoesControl"
+                            code:CharAttributeHelper.Attribute="{Binding Path=OutdoorShoes.Key}" />
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Top Color 1:" />
+            <ContentControl Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2"
+                            code:CharAttributeHelper.Attribute="{Binding Path=TopColor1.Key}" />
+            <TextBlock Grid.Row="2" Grid.Column="2" Text="Top Color 2:" />
+            <ContentControl Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="2"
+                            code:CharAttributeHelper.Attribute="{Binding Path=TopColor2.Key}" />
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Top Color 3:" />
+            <ContentControl Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="2"
+                            code:CharAttributeHelper.Attribute="{Binding Path=TopColor3.Key}" />
+            <TextBlock Grid.Row="3" Grid.Column="2" Text="Top Color 4:" />
+            <ContentControl Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" Margin="2"
+                            code:CharAttributeHelper.Attribute="{Binding Path=TopColor4.Key}" />
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Bottom Color 1:" />
+            <ContentControl Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="2"
+                            code:CharAttributeHelper.Attribute="{Binding Path=BottomColor1.Key}" />
+            <TextBlock Grid.Row="4" Grid.Column="2" Text="Bottom Color 2:" />
+            <ContentControl Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" Margin="2"
+                            code:CharAttributeHelper.Attribute="{Binding Path=BottomColor2.Key}" />
+
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Underwear Color:" />
+            <ContentControl Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Margin="2"
+                            code:CharAttributeHelper.Attribute="{Binding Path=UnderwearColor.Key}" />
+            <TextBlock Grid.Row="5" Grid.Column="2" Text="Socks Color:" />
+            <ContentControl Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" Margin="2"
+                            code:CharAttributeHelper.Attribute="{Binding Path=SocksColor.Key}" />
+
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="In Shoes Color:" />
+            <ContentControl Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Margin="2"
+                            code:CharAttributeHelper.Attribute="{Binding Path=IndoorShoesColor.Key}" />
+            <TextBlock Grid.Row="6" Grid.Column="2" Text="Out Shoes Color:" />
+            <ContentControl Grid.Row="6" Grid.Column="3" VerticalAlignment="Center" Margin="2"
+                            code:CharAttributeHelper.Attribute="{Binding Path=OutdoorShoesColor.Key}" />
+
+            <Grid Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="7" Margin="150,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ToggleButton Grid.Column="0" IsChecked="{Binding Path=IsUnderwear.Value}" Content="Is Underwear"
+                              Margin="3" />
+                <ToggleButton Grid.Column="1" IsChecked="{Binding Path=IsSkirt.Value}" Content="Is Skirt" Margin="3" />
+                <ToggleButton Grid.Column="2" IsChecked="{Binding Path=IsOnePiece.Value}" Content="Is One Piece"
+                              Margin="3" />
+                <Button Grid.Column="3" Content="Auto" Command="New" Margin="3" />
+            </Grid>
+        </Grid>
+        <!-- Region Skirt -->
+        <partial:TextureView Grid.Row="1" TextureViewModel="{Binding Path=SkirtTexture}"
+                             ViewHalfShadow="{configMgr:Configuration SKIRT_SHADOWHALF, DefaultValue=False}" />
+        <!-- Region Panties -->
+        <partial:TextureView Grid.Row="2" TextureViewModel="{Binding Path=UnderwearTexture}"
+                             ViewHalfShadow="{configMgr:Configuration UNDERWEAR_SHADOWHALF, DefaultValue=True}" />
+        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right">
+            <Button Content="Load Suit Data" Command="Open" Padding="3,0" Margin="3" />
+            <Button Content="Save Suit Data" Command="Save" Padding="3,0" Margin="3" />
+            <Button Content="Copy Suit Data" Command="Copy" Padding="3,0" Margin="3" />
+            <Button Content="Paste Suit Data" Command="Paste" Padding="3,0" Margin="3" />
+        </StackPanel>
+    </Grid>
+</UserControl>

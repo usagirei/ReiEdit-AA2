@@ -1,0 +1,31 @@
+﻿<Button x:Class="AA2Lib.Controls.ColorPicker" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:converters="clr-namespace:AA2Lib.Converters"
+        mc:Ignorable="d" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+        Click="ColorPicker_OnClick" AllowDrop="True" d:DesignHeight="22" d:DesignWidth="100">
+    <Button.Resources>
+        <converters:ColorConverter x:Key="ColorConverter" />
+    </Button.Resources>
+    <Button.ContextMenu>
+        <ContextMenu>
+            <ContextMenu.CommandBindings>
+                <CommandBinding Command="Copy" Executed="CopyCommand_Execute" />
+                <CommandBinding Command="Paste" Executed="PasteCommand_Execute" CanExecute="PasteCommand_CanExecute" />
+            </ContextMenu.CommandBindings>
+            <MenuItem Command="Copy" Header="Copy" InputGestureText="{x:Null}" />
+            <MenuItem Command="Paste" Header="Paste" InputGestureText="{x:Null}" />
+        </ContextMenu>
+    </Button.ContextMenu>
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+        <Rectangle Stroke="Black" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Left" Height="13"
+                   Width="20" Margin="3,-1,3,0">
+            <Rectangle.Fill>
+                <SolidColorBrush
+                    Color="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=Color, Converter={StaticResource ColorConverter}}" />
+            </Rectangle.Fill>
+        </Rectangle>
+        <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=Color}"
+                   VerticalAlignment="Top" />
+    </StackPanel>
+</Button>

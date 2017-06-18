@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- DataTypes -->
+  <xs:simpleType name="dt_dataTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="encodedstring" />
+      <xs:enumeration value="string" />
+      <xs:enumeration value="enum" />
+      <xs:enumeration value="color" />
+      <xs:enumeration value="bool" />
+      <xs:enumeration value="byte" />
+      <xs:enumeration value="int16" />
+      <xs:enumeration value="int32" />
+      <xs:enumeration value="array" />
+      <xs:enumeration value="struct" />
+      <xs:enumeration value="dummy" />
+      <xs:enumeration value="seat" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- #################### -->
+  <xs:simpleType name="dt_numericTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="byte" />
+      <xs:enumeration value="int16" />
+      <xs:enumeration value="int32" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- #################### -->
+  <xs:complexType name="dt_enumPair">
+    <xs:attribute name="key" type="xs:int" use="required" />
+    <xs:attribute name="value" type="xs:string" use="required" />
+  </xs:complexType>
+  <!-- #################### -->
+  <xs:complexType name="dt_dataBlock">
+    <xs:attribute name="type" type="dt_dataTypes" use="required" />
+
+    <xs:attribute name="address" type="xs:string" use="optional" default="auto" />
+    <xs:attribute name="key" type="xs:string" use="optional" />
+    <xs:attribute name="displayname" type="xs:string" use="optional" />
+
+    <xs:attribute name="minvalue" type="xs:int" use="optional" />
+    <xs:attribute name="maxvalue" type="xs:int" use="optional" />
+    <xs:attribute name="warnvalue" type="xs:int" use="optional" />
+
+    <xs:attribute name="copyaddress" type="xs:string" use="optional" />
+    <xs:attribute name="datasize" type="xs:unsignedInt" use="optional" default="0" />
+    <xs:attribute name="readonly" type="xs:boolean" use="optional" default="false" />
+
+    <xs:attribute name="innertype" type="dt_dataTypes" use="optional" />
+    <xs:attribute name="headtype" type="dt_numericTypes" use="optional" default="byte" />
+    <xs:attribute name="arraysize" type="xs:string" use="optional" default="auto" />
+
+    <xs:attribute name="metakey" type="xs:string" use="optional" />
+  </xs:complexType>
+  <!-- #################### -->
+  <xs:complexType name="dt_struct">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="datablock" type="dt_dataBlock" />
+    </xs:sequence>
+    <xs:attribute name="key" type="xs:string" use="required" />
+  </xs:complexType>
+  <!-- #################### -->
+  <xs:complexType name="dt_enumerable">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="enumpair" type="dt_enumPair" />
+    </xs:sequence>
+    <xs:attribute name="key" type="xs:string" use="required" />
+    <xs:attribute name="type" type="dt_numericTypes" use="optional" default="byte" />
+  </xs:complexType>
+  <!-- Document -->
+  <xs:element name="dataset">
+    <xs:complexType>
+      <xs:all>
+        <!-- Structs -->
+        <xs:element name="structs" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="struct" minOccurs="0" maxOccurs="unbounded" type="dt_struct" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <!-- Enumerables -->
+        <xs:element name="enumerables" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="enumerable" minOccurs="0" maxOccurs="unbounded" type="dt_enumerable" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <!-- DataBlocks -->
+        <xs:element name="datablocks" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="datablock" type="dt_dataBlock" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+    <!-- Unique Keys -->
+    <xs:unique name="UniqueEnumTypeKey">
+      <xs:selector xpath="enumerables/enumerable" />
+      <xs:field xpath="@key" />
+    </xs:unique>
+    <xs:unique name="UniqueNameAttrKey">
+      <xs:selector xpath="datablocks/datablock" />
+      <xs:field xpath="@key" />
+    </xs:unique>
+    <!-- Key Validation -->
+    <xs:key name="EnumTypeKey">
+      <xs:selector xpath="enumerables/enumerable" />
+      <xs:field xpath="@key" />
+    </xs:key>
+    <xs:keyref refer="EnumTypeKey" name="DataBlockEnumType">
+      <xs:selector xpath="datablocks/datablock" />
+      <xs:field xpath="@enumkey" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

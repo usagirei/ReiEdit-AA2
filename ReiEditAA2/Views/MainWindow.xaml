@@ -1,0 +1,356 @@
+﻿<Window x:Class="ReiEditAA2.Views.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:ReiEditAA2.ViewModels" xmlns:code="clr-namespace:ReiEditAA2.Code"
+        xmlns:dataBlocks="clr-namespace:AA2Lib.Code.DataBlocks;assembly=AA2Lib"
+        xmlns:partial="clr-namespace:ReiEditAA2.Views.Partial"
+        xmlns:configMgr="clr-namespace:AA2Lib.Code.ConfigurationManager;assembly=AA2Lib"
+        xmlns:converters="clr-namespace:ReiEditAA2.Converters" xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:characterViewModelProviders="clr-namespace:ReiEditAA2.Code.CharacterViewModelProviders" mc:Ignorable="d"
+        Title="ReiEdit AA2 Beta" UseLayoutRounding="True" SnapsToDevicePixels="True" Loaded="MainWindow_OnLoaded"
+        d:DataContext="{d:DesignInstance code:CharacterCollection}" Left="{configMgr:Configuration WND_LEFT}"
+        Top="{configMgr:Configuration WND_TOP}" Width="{configMgr:Configuration WND_HEIGHT, DefaultValue=1024}"
+        Height="{configMgr:Configuration WND_WIDTH, DefaultValue=768}"
+        WindowState="{configMgr:Configuration Key=WND_STATE, DefaultValue={x:Static WindowState.Normal}, IgnoreValue={x:Static WindowState.Minimized}}"
+        Closing="Window_Closing" x:ClassModifier="internal">
+    <Window.Resources>
+        <ResourceDictionary>
+            <dataBlocks:DataBlockTemplateSelector x:Key="DataBlockTemplateSelector" />
+            <Style TargetType="{x:Type GroupBox}">
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" Margin="2" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="MenuItemNullCommandStyle" TargetType="{x:Type MenuItem}">
+                <Style.Triggers>
+                    <Trigger Property="Command" Value="{x:Null}">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <converters:KeyIndentConverter x:Key="KeyIndentConverter" IndentString="- " />
+            <Style x:Key="DataGridCellStyle" TargetType="{x:Type DataGridCell}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type DataGridCell}">
+                            <Grid Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" Margin="1" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <system:Boolean x:Key="FalseBoolean">False</system:Boolean>
+            <system:Boolean x:Key="TrueBoolean">True</system:Boolean>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="O" Modifiers="Control"
+                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=LoadGameSaveCommand}" />
+        <KeyBinding Key="O" Modifiers="Control+Shift"
+                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=LoadEditorSaveCommand}"
+                    CommandParameter="{StaticResource FalseBoolean}" />
+        <KeyBinding Key="S" Modifiers="Control"
+                    Command="{Binding ElementName=CharactersControl, Path=SelectedItem.(viewModels:CharacterViewModel.SaveCommand)}" />
+        <KeyBinding Key="S" Modifiers="Control+Shift"
+                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=SaveAllCommand}" />
+        <KeyBinding Key="E" Modifiers="Control"
+                    Command="{Binding ElementName=CharactersControl, Path=SelectedItem.(viewModels:CharacterViewModel.SaveAsCommand)}" />
+        <KeyBinding Key="R" Modifiers="Control"
+                    Command="{Binding ElementName=CharactersControl, Path=SelectedItem.(viewModels:CharacterViewModel.ReloadCommand)}" />
+    </Window.InputBindings>
+    <Grid x:Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu Background="Transparent" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="2"
+              DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <MenuItem Header="File">
+                <MenuItem Header="Save Character Changes" InputGestureText="Ctrl+S"
+                          Command="{Binding ElementName=CharactersControl, Path=SelectedItem.(viewModels:CharacterViewModel.SaveCommand)}"
+                          Style="{StaticResource MenuItemNullCommandStyle}" />
+                <MenuItem Header="Save All Character Changes" InputGestureText="Ctrl+Shift+S"
+                          Command="{Binding Path=SaveAllCommand}" />
+                <Separator />
+                <MenuItem Header="Export Character" InputGestureText="Ctrl+E"
+                          Command="{Binding ElementName=CharactersControl, Path=SelectedItem.(viewModels:CharacterViewModel.SaveAsCommand)}"
+                          Style="{StaticResource MenuItemNullCommandStyle}" />
+                <MenuItem Header="Reload Character" InputGestureText="Ctrl+R"
+                          Command="{Binding ElementName=CharactersControl, Path=SelectedItem.(viewModels:CharacterViewModel.ReloadCommand)}"
+                          Style="{StaticResource MenuItemNullCommandStyle}" />
+                <MenuItem Header="Reload All Characters" InputGestureText="Ctrl+Shift+R"
+                          Command="{Binding Path=ReloadAllCommand}" />
+                <Separator />
+                <MenuItem Header="Load Game Save" Command="{Binding Path=LoadGameSaveCommand}"
+                          InputGestureText="Ctrl+O" />
+                <MenuItem Header="Load Standalone Chars">
+                    <MenuItem Header="Editor Male and Female Only" InputGestureText="Ctrl+Shift+O"
+                              Command="{Binding Path=LoadEditorSaveCommand}"
+                              CommandParameter="{StaticResource FalseBoolean}" />
+                    <MenuItem Header="Editor + Subfolders" Command="{Binding Path=LoadEditorSaveCommand}"
+                              CommandParameter="{StaticResource TrueBoolean}" />
+                    <MenuItem Header="Directory" Command="{Binding Path=LoadCustomDirectoryCommand}"
+                              CommandParameter="{StaticResource FalseBoolean}" />
+                    <MenuItem Header="Directory + Subfolders" Command="{Binding Path=LoadCustomDirectoryCommand}"
+                              CommandParameter="{StaticResource TrueBoolean}" />
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Exit" InputGestureText="Alt+F4" Click="Close_OnClick" />
+            </MenuItem>
+            <MenuItem Header="Tools"
+                      ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=Window}, Path=Tools}">
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="Header" Value="{Binding Path=Name}" />
+                        <Setter Property="Command" Value="{Binding Path=ModifyCommand}" />
+                        <Setter Property="CommandParameter"
+                                Value="{Binding ElementName=CharactersControl, Path=SelectedItem}" />
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+            </MenuItem>
+            <MenuItem Header="Plugins"
+                      ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=Window}, Path=DynamicPlugins}">
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="Header" Value="{Binding Path=Name}" />
+                        <Setter Property="ItemsSource" Value="{Binding Path=Modifiers}" />
+                        <Setter Property="ItemContainerStyle">
+                            <Setter.Value>
+                                <Style TargetType="{x:Type MenuItem}">
+                                    <Setter Property="Header" Value="{Binding Path=Name}" />
+                                    <Setter Property="Command" Value="{Binding Path=ModifyCommand}" />
+                                    <Setter Property="CommandParameter"
+                                            Value="{Binding ElementName=CharactersControl, Path=SelectedItem}" />
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+            </MenuItem>
+            <MenuItem Header="(Re)Load Plugins" Command="{Binding Path=ReloadPluginsCommand}" />
+            <MenuItem Header="About" Command="{Binding Path=ShowAboutCommand}" />
+        </Menu>
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ComboBox Grid.Row="0" Grid.Column="0" x:Name="SortBox" Margin="2"
+                          SelectedValue="{Binding Path=SortProperty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          ItemsSource="{Binding Path=SortProperties}" DisplayMemberPath="Display"
+                          SelectedValuePath="Value" SelectedIndex="0" />
+                <ComboBox Grid.Row="0" Grid.Column="1" x:Name="OrderBox" Margin="2"
+                          SelectedValue="{Binding Path=SortDirection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          ItemsSource="{Binding Path=SortDirections}" SelectedIndex="0" DisplayMemberPath="Display"
+                          SelectedValuePath="Value" />
+                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="FilterTextBox" Margin="2"
+                         Text="{Binding Path=SortFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+            <ListBox Grid.Row="1" x:Name="CharactersControl" BorderThickness="0"
+                     ItemsSource="{Binding Path=CollectionView}" AlternationCount="2"
+                     IsSynchronizedWithCurrentItem="True" SelectedIndex="0" HorizontalContentAlignment="Stretch"
+                     SelectionMode="Single" SelectedValuePath="Character">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF5B97A8" />
+                            <!-- WinXP Broke it, was InactiveSelectionHighlightBrushKey -->
+                            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#FF5B97A8" />
+                        </Style.Resources>
+                        <Style.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                <Setter Property="Background" Value="#FFF5F5F5" />
+                            </Trigger>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                <Setter Property="Background" Value="#FFE6E6E6" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF9ECDDA" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewModels:CharacterViewModel}">
+                        <Grid x:Name="GridBG">
+
+                            <Grid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Save" Command="{Binding Path=SaveCommand}" />
+                                    <MenuItem Header="Reload" Command="{Binding Path=ReloadCommand}" />
+                                    <MenuItem Header="Export" Command="{Binding Path=SaveAsCommand}" />
+                                    <Separator />
+                                    <MenuItem Header="Card Viewer" Click="ViewCard_OnClick"
+                                              CommandParameter="{Binding}" />
+                                </ContextMenu>
+                            </Grid.ContextMenu>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" CornerRadius="5" BorderBrush="Black" BorderThickness="1" Margin="5"
+                                    Height="92" VerticalAlignment="Top" ToolTip="{Binding Metadata}">
+                                <Grid>
+                                    <Border Name="ClipBorder" CornerRadius="5" Background="White" Margin="0" />
+                                    <Image Source="{Binding Path=Character.ThumbImage}" Width="74" Height="90"
+                                           Margin="2">
+                                        <Image.OpacityMask>
+                                            <VisualBrush Visual="{Binding ElementName=ClipBorder}" />
+                                        </Image.OpacityMask>
+                                    </Image>
+                                </Grid>
+                            </Border>
+                            <Grid Grid.Column="1" Margin="0,5" Background="Transparent">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="14" HorizontalAlignment="Left"
+                                           FontWeight="Bold"
+                                           Text="{Binding Path=ExtraData[PLAY_SEAT], StringFormat='{}[{0:D2}] '}" />
+                                <TextBlock Grid.Row="0" Grid.Column="1" FontSize="14" HorizontalAlignment="Left"
+                                           FontWeight="Bold" TextTrimming="CharacterEllipsis" MaxWidth="120"
+                                           ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="Profile.FamilyName.Value" />
+                                            <Binding Path="Profile.FirstName.Value" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <Button Grid.Row="0" Grid.Column="2" Command="{Binding Path=SaveCommand}"
+                                        Content="Save" Margin="0,0,5,0" />
+                                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="12"
+                                           FontWeight="DemiBold" Text="{Binding Path=Profile.Personality.EnumValue}" />
+                                <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" FontSize="10"
+                                           FontWeight="DemiBold"
+                                           Text="{Binding Path=Profile.VaginalExperience.Value, StringFormat='{}Sexual Experience: {0}'}" />
+                                <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" FontSize="10"
+                                           FontWeight="DemiBold"
+                                           Text="{Binding Path=Profile.AnalExperience.Value, StringFormat='{}Anal Experience: {0}'}" />
+                                <Separator Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,2,5,2" />
+                                <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
+                                           Text="{Binding Path=Profile.Profile.Value}" FontSize="10"
+                                           FontWeight="DemiBold" TextWrapping="Wrap" Width="180" />
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <TabControl x:Name="EditorTabs" Grid.Column="1" Grid.Row="1" BorderThickness="1,1,0,0" Margin="0,2,0,0"
+                    DataContext="{Binding ElementName=CharactersControl, Path=SelectedItem}"
+                    d:DataContext="{d:DesignInstance {x:Type viewModels:CharacterViewModel}}">
+            <TabControl.Resources>
+                <Style x:Key="DisableStyle" TargetType="{x:Type FrameworkElement}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=CharactersControl, Path=SelectedIndex}" Value="-1">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+                <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource DisableStyle}" />
+                <Style TargetType="{x:Type partial:BodyView}" BasedOn="{StaticResource DisableStyle}" />
+                <Style TargetType="{x:Type partial:ClothesView}" BasedOn="{StaticResource DisableStyle}" />
+                <Style TargetType="{x:Type partial:PreferencesView}" BasedOn="{StaticResource DisableStyle}" />
+                <Style TargetType="{x:Type partial:PregnancyView}" BasedOn="{StaticResource DisableStyle}" />
+                <Style TargetType="{x:Type partial:ProfileView}" BasedOn="{StaticResource DisableStyle}" />
+                <Style TargetType="{x:Type partial:UniformView}" BasedOn="{StaticResource DisableStyle}" />
+                <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource DisableStyle}" />
+            </TabControl.Resources>
+
+            <TabItem Header="Profile">
+                <partial:ProfileView CharacterViewModel="{Binding}" />
+            </TabItem>
+            <TabItem Header="Body">
+                <partial:BodyView CharacterViewModel="{Binding}" />
+            </TabItem>
+            <TabItem Header="Clothes">
+                <partial:ClothesView CharacterViewModel="{Binding}" />
+            </TabItem>
+            <TabItem Header="Traits &amp; Preferences">
+                <partial:PreferencesView CharacterViewModel="{Binding}" />
+            </TabItem>
+            <TabItem Header="Pregnancy &amp; Compatibility">
+                <partial:PregnancyView CharacterViewModel="{Binding}" />
+            </TabItem>
+            <TabItem Header="Advanced">
+                <DataGrid x:Name="AttributeDataGrid" ItemsSource="{Binding Path=Character.CharAttributes.Values}"
+                          AutoGenerateColumns="False" CellStyle="{StaticResource DataGridCellStyle}">
+                    <DataGrid.CommandBindings>
+                        <CommandBinding Command="Copy" Executed="DataGridCopyCommand_Execute"
+                                        CanExecute="DataGridCopyCommand_CanExecute" />
+                        <CommandBinding Command="Paste" Executed="DataGridPasteCommand_Execute"
+                                        CanExecute="DataGridPasteCommand_CanExecute" />
+                    </DataGrid.CommandBindings>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Command="Copy" />
+                            <MenuItem Header="Paste" Command="Paste" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Addr" Binding="{Binding Path=AddressHex}" IsReadOnly="True"
+                                            CanUserReorder="False" FontFamily="Consolas" />
+                        <DataGridTextColumn Header="Type" Binding="{Binding Path=DataType}" IsReadOnly="True"
+                                            CanUserReorder="False" FontFamily="Consolas" />
+                        <DataGridTextColumn Header="Key" Binding="{Binding Path=Key}" IsReadOnly="True" Width="*"
+                                            CanUserReorder="False" FontFamily="Consolas" />
+                        <DataGridTemplateColumn Header="Value" MinWidth="200" Width="200" CanUserReorder="False"
+                                                CellTemplateSelector="{StaticResource DataBlockTemplateSelector}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Play Data">
+                <DataGrid x:Name="PlayDataGrid"
+                          ItemsSource="{Binding Path=ExtraData[PLAY_DATA].(characterViewModelProviders:DataBlockWrapperBuffer.Attributes).Values}"
+                          AutoGenerateColumns="False" CellStyle="{StaticResource DataGridCellStyle}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Addr" Binding="{Binding Path=AddressHex}" IsReadOnly="True"
+                                            CanUserReorder="False" FontFamily="Consolas" />
+                        <DataGridTextColumn Header="Type" Binding="{Binding Path=DataType}" IsReadOnly="True"
+                                            CanUserReorder="False" FontFamily="Consolas" />
+                        <DataGridTextColumn Header="Key"
+                                            Binding="{Binding Path=Key, Converter={StaticResource KeyIndentConverter}}"
+                                            IsReadOnly="True" Width="*" CanUserReorder="False" FontFamily="Consolas" />
+                        <DataGridTemplateColumn Header="Value" MinWidth="200" Width="200"
+                                                CellTemplateSelector="{StaticResource DataBlockTemplateSelector}"
+                                                CanUserReorder="False" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

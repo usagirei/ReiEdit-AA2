@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<random>
+  <items>
+    <item kind="friend">Lucky Dog Puppet</item>
+    <item kind="friend" personality="23">GunParade March 2 Limited Edition</item>
+    <item kind="friend">Gold Bar</item>
+    <item kind="friend" gender="female">Bikini Bottoms</item>
+    <item kind="friend">Zunda Roll</item>
+    <item kind="friend">Jizou Cellphone Charm</item>
+    <item kind="friend">Yakisoba Bread</item>
+    <item kind="friend">Last Yakisoba Bread</item>
+    <item kind="friend">Boys' Love Doujinshi</item>
+    <item kind="friend">Nuka Cola</item>
+    <item kind="friend">Large Slapping Fan</item>
+    <item kind="friend" personality="23;12">Rin-chan Figurine</item>
+    <item kind="friend" personality="23;12">Rin-chan Pillowcase</item>
+    <item kind="friend">Very Popular Doujinshi</item>
+    <item kind="friend">Hand Towel</item>
+    <item kind="friend" personality="23;12">Transformation Belt</item>
+    <item kind="friend" personality="23;12">Magical Girl Transformation Bracelet</item>
+    <item kind="friend" gender="female">Hairpin</item>
+    <item kind="friend">Token of Friendship</item>
+    <item kind="friend">Pile Bunker</item>
+    <item kind="friend">Cat Photos</item>
+    <item kind="friend">Glasses Case</item>
+    <item kind="friend">Candy</item>
+    <item kind="friend">Long-Titled Light Novel</item>
+    <item kind="friend">Disposable Body Warmer</item>
+    <item kind="friend">Well-Made Onigiri</item>
+    <item kind="friend">Canned Coffee</item>
+    <item kind="friend">Sewing Kit</item>
+    <item kind="friend">Melon Bread</item>
+    <item kind="friend">Exercise Equipment</item>
+    <item kind="friend">Massager</item>
+    <item kind="friend">Cactus</item>
+    <item kind="friend">Crystal Ball</item>
+    <item kind="friend">Mayonnaise</item>
+    <item kind="friend">Oversized Headphones</item>
+    <item kind="friend">Vegetable Juice</item>
+    <item kind="friend">Empty Mechanical Pencil</item>
+    <item kind="friend">Fluffy Towel</item>
+    <item kind="friend">Arcade Tokens</item>
+    <item kind="friend">Soft Meat Buns</item>
+    <item kind="friend">Study Guide</item>
+    <item kind="friend">Tambourine</item>
+    <item kind="friend">Brass Knuckles</item>
+    <item kind="friend">Scented Eraser</item>
+    <item kind="friend">Trading Card</item>
+    <item kind="friend">Racing Magazine</item>
+    <item kind="friend">Mobile Beverage System</item>
+    <item kind="friend">Supplements</item>
+    <item kind="friend">Protein Bar</item>
+    <item kind="friend">Old 10-Yen Coin</item>
+    <item kind="friend">Convenience Store Bento</item>
+  </items>
+</random>

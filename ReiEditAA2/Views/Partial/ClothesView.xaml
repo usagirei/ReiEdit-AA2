@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="ReiEditAA2.Views.Partial.ClothesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:views="clr-namespace:ReiEditAA2.Views"
+             xmlns:partial="clr-namespace:ReiEditAA2.Views.Partial" mc:Ignorable="d" d:DesignHeight="600"
+             d:DesignWidth="600" x:ClassModifier="internal">
+    <Grid
+        DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=CharacterViewModel}">
+        <TabControl>
+            <TabItem Header="Uniform">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <partial:UniformView ClothesViewModel="{Binding Path=UniformSuit}" />
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Sports">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <partial:UniformView ClothesViewModel="{Binding Path=SportsSuit}" />
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Swimsuit">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <partial:UniformView ClothesViewModel="{Binding Path=SwimsuitSuit}" />
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Club">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <partial:UniformView ClothesViewModel="{Binding Path=ClubSuit}" />
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>
