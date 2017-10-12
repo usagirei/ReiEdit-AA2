@@ -43,6 +43,7 @@ namespace ReiEditAA2.Views
         private readonly ICommand _loadCustomDirCommand;
 
         private readonly ICommand _loadEditorSaveCommand;
+        private readonly ICommand _configPathsCommand;
         private readonly ICommand _loadGameSaveCommand;
         private readonly ICommand _loadPluginsCommand;
         private readonly ICommand _reloadAllCommand;
@@ -65,6 +66,11 @@ namespace ReiEditAA2.Views
         public ICommand LoadGameSaveCommand
         {
             get { return _loadGameSaveCommand; }
+        }
+
+        public ICommand ConfigPathsCommand
+        {
+            get { return _configPathsCommand; }
         }
 
         public ICommand ReloadAllCommand
@@ -96,6 +102,7 @@ namespace ReiEditAA2.Views
             DynamicPlugins = new ObservableCollection<PluginMenu>();
 
             _loadEditorSaveCommand = new RelayCommand<bool>(LoadEditorSave_Execute);
+            _configPathsCommand = new RelayCommand<bool>(ConfigPaths_Execute);
             _loadGameSaveCommand = new RelayCommand(LoadGameSave_Execute);
             _loadCustomDirCommand = new RelayCommand<bool>(LoadCustomDir_Execute);
             _showAboutCommand = new RelayCommand(ShowAboutMenu_Execute);
@@ -392,6 +399,14 @@ namespace ReiEditAA2.Views
             SortBox.SelectedValue = viewModelProvider.DefaultSortProperty;
             OrderBox.SelectedValue = viewModelProvider.DefaultSortDirection;
             CharactersControl.SelectedIndex = 0;
+        }
+
+        private void ConfigPaths_Execute(bool play)
+        {
+            if (play)
+                Core.GetPlayPath();
+            else
+                Core.GetEditPath();
         }
 
         private void LoadEditorSave_Execute(bool subdirs)

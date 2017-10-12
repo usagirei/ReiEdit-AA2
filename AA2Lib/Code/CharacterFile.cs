@@ -21,6 +21,7 @@ namespace AA2Lib.Code
         private BitmapImage _cardImage;
         private Dictionary<string, DataBlockWrapper> _charAttributes;
         private byte[] _dataBytes;
+        private byte[] _rawBytes;
         private bool _dataChanged;
         private byte[] _thumbBytes;
         private bool _thumbChanged;
@@ -105,6 +106,12 @@ namespace AA2Lib.Code
                     UpdateCharAttributes();
                 OnPropertyChanged(String.Empty);
             }
+        }
+
+        public byte[] RawBytes
+        {
+            get { return _rawBytes; }
+            set { _rawBytes  = value; }
         }
 
         public bool DataChanges
@@ -225,7 +232,7 @@ namespace AA2Lib.Code
             }
         }
 
-        public static CharacterFile Load(byte[] rawData)
+        public static CharacterFile Load(byte[] rawData, bool issave = true)
         {
             try
             {
@@ -242,6 +249,9 @@ namespace AA2Lib.Code
                 int cardLenght = dataOffset;
                 int thumbLenght = BitConverter.ToInt32(rawData, thumbOffset - 4);
 
+                int rawOffset = thumbOffset + thumbLenght;
+                int rawLength = rawData.Length - 4 - rawOffset;
+
                 CharacterFile file = new CharacterFile();
 
                 file.CardBytes = new byte[cardLenght];
@@ -252,6 +262,12 @@ namespace AA2Lib.Code
 
                 file.DataBytes = new byte[dataLenght];
                 Buffer.BlockCopy(rawData, dataOffset, file.DataBytes, 0, file.DataBytes.Length);
+
+                if (!issave)
+                {
+                    file.RawBytes = new byte[rawLength];
+                    if (rawLength > 0) Buffer.BlockCopy(rawData, rawOffset, file.RawBytes, 0, file.RawBytes.Length);
+                }
 
                 int version = BitConverter.ToInt32(file.DataBytes, 16);
 
@@ -278,7 +294,7 @@ namespace AA2Lib.Code
                     int toRead = (int) Math.Min(buffer, stream.Length - stream.Position);
                     pos += stream.Read(data, pos, toRead);
                 }
-                return Load(data);
+                return Load(data, false);
             }
             catch
             {
