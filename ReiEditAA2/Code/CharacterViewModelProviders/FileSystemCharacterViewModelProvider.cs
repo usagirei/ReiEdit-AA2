@@ -164,12 +164,14 @@ namespace ReiEditAA2.Code.CharacterViewModelProviders
                 fs.Write(BitConverter.GetBytes(model.Character.ThumbBytes.Length), 0, 4);
                 // Thumb Bytes
                 fs.Write(model.Character.ThumbBytes, 0, model.Character.ThumbBytes.Length);
+                // Variable-sized remainder can be appended to the thumb (used by tools like AAU override asset blobs)
+                fs.Write(model.Character.RawBytes, 0, model.Character.RawBytes.Length);
+                int lastBytes = model.Character.ThumbBytes.Length + 4 + model.Character.DataBytes.Length + model.Character.RawBytes.Length + 4;
                 // Identifier Mark
-                int lastBytes = model.Character.ThumbBytes.Length + 4 + model.Character.DataBytes.Length + 4;
                 fs.Write(BitConverter.GetBytes(lastBytes), 0, 4);
                 // Make Sure Flushed
                 fs.Flush();
-                //fs.Write(model.Character.RawCharData, 0, model.Character.RawCharData.Length);
+                
 
                 model.Character.DataChanges = false;
                 model.Character.CardChanges = false;
