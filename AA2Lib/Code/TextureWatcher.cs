@@ -1,4 +1,4 @@
-// --------------------------------------------------
+Ôªø// --------------------------------------------------
 // AA2Lib - TextureWatcher.cs
 // --------------------------------------------------
 
@@ -7,19 +7,27 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
+public static class NativeMethods
+{
+
+}
+
 namespace AA2Lib.Code
 {
     public class TextureWatcher
     {
-        private const string ANY_PATTERN = "*.bmp";
-        private const string NULL_TEX_NAME = "NullTex_000.bmp";
-        private const string SKIRT_PATTERN = "ÉXÉJÅ[Ég_*.bmp";
-        private const string UNDERWEAR_PATTERN = "â∫íÖ_*.bmp";
+        private const string ANY_PATTERN = @"*.bmp";
+        private const string NULL_TEX_NAME = @"NullTex_000.bmp";
+        private const string SKIRT_PREFIX = @"„Çπ„Ç´„Éº„Éà_";
+        private const string SKIRT_PATTERN = SKIRT_PREFIX + @"*.bmp";
+        private const string UNDERWEAR_PREFIX = @"‰∏ãÁùÄ_";
+        private const string UNDERWEAR_PATTERN = UNDERWEAR_PREFIX + @"*.bmp";
 
         public static readonly TextureWatcher Instance = new TextureWatcher();
 
@@ -57,44 +65,68 @@ namespace AA2Lib.Code
 
             TextureList = new Dictionary<string, ObservableCollection<TextureElement>>();
 
-            foreach (string dir in Directory.EnumerateDirectories(Core.EditTextureDir))
+            foreach (string dir in Directory.EnumerateDirectories(Core.EditTextureDir, "eye"))
             {
-                var coll = new ObservableCollection<TextureElement>
-                (Directory.EnumerateFiles(dir, ANY_PATTERN)
-                    .Select(TextureElement.Create));
+                try
+                {
+                    var coll = new ObservableCollection<TextureElement>
+                    (Directory.EnumerateFiles(dir, ANY_PATTERN)
+                        .Select(TextureElement.Create));
 
-                string dirName = Path.GetFileName(dir);
-                TextureList.Add(dirName, coll);
+                    string dirName = Path.GetFileName(dir);
+                    TextureList.Add(dirName, coll);
+                }
+                catch {
+                }
+            }
+
+            foreach (string dir in Directory.EnumerateDirectories(Core.EditTextureDir, "hilight"))
+            {
+                try
+                {
+                    var coll = new ObservableCollection<TextureElement>
+                    (Directory.EnumerateFiles(dir, ANY_PATTERN)
+                        .Select(TextureElement.Create));
+
+                    string dirName = Path.GetFileName(dir);
+                    TextureList.Add(dirName, coll);
+                }
+                catch {
+                }
             }
 
             foreach (string dir in Directory.EnumerateDirectories(Core.PlayTextureDir, "skirt*"))
             {
-                var coll = new ObservableCollection<TextureElement>
-                (NullTex.Concat
-                (Directory.EnumerateFiles(dir, SKIRT_PATTERN)
-                    .Select(TextureElement.Create)));
-
-                string dirName = Path.GetFileName(dir);
-                TextureList.Add(dirName, coll);
+                try
+                {
+                    var coll = new ObservableCollection<TextureElement>
+                    (NullTex.Concat
+                    (Directory.EnumerateFiles(dir, SKIRT_PATTERN)
+                        .Select(TextureElement.Create)));
+                    string dirName = Path.GetFileName(dir);
+                    TextureList.Add(dirName, coll);
+                }
+                catch (Exception e)
+                {
+                }
             }
 
             foreach (string dir in Directory.EnumerateDirectories(Core.PlayTextureDir, "sitagi*"))
             {
-                var coll = new ObservableCollection<TextureElement>
-                (NullTex.Concat
-                (Directory.EnumerateFiles(dir, UNDERWEAR_PATTERN)
-                    .Select(TextureElement.Create)));
+                try
+                {
+                    var coll = new ObservableCollection<TextureElement>
+                    (NullTex.Concat
+                    (Directory.EnumerateFiles(dir, UNDERWEAR_PATTERN)
+                        .Select(TextureElement.Create)));
 
-                string dirName = Path.GetFileName(dir);
-                TextureList.Add(dirName, coll);
+                    string dirName = Path.GetFileName(dir);
+                    TextureList.Add(dirName, coll);
+                }
+                catch {
+                }
             }
 
-            EditTextureDirWatcher = new FileSystemWatcher(Core.EditTextureDir, ANY_PATTERN)
-            {
-                EnableRaisingEvents = true,
-                NotifyFilter = NotifyFilters.FileName | NotifyFilters.Size | NotifyFilters.LastWrite,
-                IncludeSubdirectories = true
-            };
             PlayTextureDirWatcher = new FileSystemWatcher(Core.PlayTextureDir, ANY_PATTERN)
             {
                 EnableRaisingEvents = true,
@@ -102,15 +134,25 @@ namespace AA2Lib.Code
                 IncludeSubdirectories = true
             };
 
-            EditTextureDirWatcher.Changed += TextureDirWatcherOnChanged;
-            EditTextureDirWatcher.Deleted += TextureDirWatcherOnChanged;
-            EditTextureDirWatcher.Renamed += TextureDirWatcherOnChanged;
-            EditTextureDirWatcher.Created += TextureDirWatcherOnChanged;
-
             PlayTextureDirWatcher.Changed += TextureDirWatcherOnChanged;
             PlayTextureDirWatcher.Deleted += TextureDirWatcherOnChanged;
             PlayTextureDirWatcher.Renamed += TextureDirWatcherOnChanged;
             PlayTextureDirWatcher.Created += TextureDirWatcherOnChanged;
+
+            if (Core.PlayTextureDir != Core.EditTextureDir)
+            {
+                EditTextureDirWatcher = new FileSystemWatcher(Core.EditTextureDir, ANY_PATTERN)
+                {
+                    EnableRaisingEvents = true,
+                    NotifyFilter = NotifyFilters.FileName | NotifyFilters.Size | NotifyFilters.LastWrite,
+                    IncludeSubdirectories = true
+                };
+
+                EditTextureDirWatcher.Changed += TextureDirWatcherOnChanged;
+                EditTextureDirWatcher.Deleted += TextureDirWatcherOnChanged;
+                EditTextureDirWatcher.Renamed += TextureDirWatcherOnChanged;
+                EditTextureDirWatcher.Created += TextureDirWatcherOnChanged;
+            }
         }
 
         private TextureWatcher()
@@ -206,7 +248,9 @@ namespace AA2Lib.Code
             BitmapPalette myPalette = new BitmapPalette(colors);
 
             // Creates a new empty image with the pre-defined palette
-            return BitmapSource.Create(width, height, 96, 96, PixelFormats.Indexed1, myPalette, pixels, stride);
+            ImageSource iso = BitmapSource.Create(width, height, 96, 96, PixelFormats.Indexed1, myPalette, pixels, stride);
+
+            return iso;
         }
 
         public class TextureElement : INotifyPropertyChanged
@@ -238,10 +282,10 @@ namespace AA2Lib.Code
             {
                 get
                 {
-                    if (Name.StartsWith("â∫íÖ_"))
-                        return int.Parse(Name.Substring(3, 3));
-                    if (Name.StartsWith("ÉXÉJÅ[Ég_"))
-                        return int.Parse(Name.Substring(5, 3));
+                    if (Name.StartsWith(UNDERWEAR_PREFIX))
+                        return int.Parse(Name.Substring(UNDERWEAR_PREFIX.Length, 3));
+                    if (Name.StartsWith(SKIRT_PREFIX))
+                        return int.Parse(Name.Substring(SKIRT_PREFIX.Length, 3));
                     return 0;
                 }
             }

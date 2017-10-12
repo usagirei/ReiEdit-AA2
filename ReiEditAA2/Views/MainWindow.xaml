@@ -91,6 +91,9 @@
                 <MenuItem Header="Reload All Characters" InputGestureText="Ctrl+Shift+R"
                           Command="{Binding Path=ReloadAllCommand}" />
                 <Separator />
+                <MenuItem Header="Configure AA2Edit path" Command="{Binding Path=ConfigPathsCommand}" CommandParameter="{StaticResource FalseBoolean}" />
+                <MenuItem Header="Configure AA2Play path" Command="{Binding Path=ConfigPathsCommand}" CommandParameter="{StaticResource TrueBoolean}" />
+                <Separator />
                 <MenuItem Header="Load Game Save" Command="{Binding Path=LoadGameSaveCommand}"
                           InputGestureText="Ctrl+O" />
                 <MenuItem Header="Load Standalone Chars">
@@ -147,8 +150,8 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

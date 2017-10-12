@@ -27,6 +27,20 @@ namespace AA2Lib
         //public static readonly CryptoRandom Random = new CryptoRandom();
 
         private static readonly ResourceDictionary SharedResourcesInternal = new SharedResources();
+        public static string GetGamePath(string exe, string key)
+        {
+            string installDir = BrowseInstallDir(exe);
+            if (installDir != null) ConfigurationManager.Instance.SetItem(key, installDir);
+            return installDir;
+        }
+        public static string GetEditPath()
+        {
+            return GetGamePath("AA2Edit.exe", "EDIT_INSTALL");
+        }
+        public static string GetPlayPath()
+        {
+            return GetGamePath("AA2Play.exe", "PLAY_INSTALL");
+        }
 
         public static string EditInstallDir
         {
@@ -42,9 +56,7 @@ namespace AA2Lib
                 RegistryKey regKey = Registry.CurrentUser.OpenSubKey("Software\\illusion\\AA2Edit");
                 if (regKey == null)
                 {
-                    string installDir = BrowseInstallDir("AA2Edit.exe");
-                    ConfigurationManager.Instance.SetItem("EDIT_INSTALL", installDir);
-                    return installDir;
+                    return CheckInstallDir(GetEditPath());
                 }
                 string registryDir = (string) regKey.GetValue("INSTALLDIR");
                 regKey.Close();
@@ -89,9 +101,7 @@ namespace AA2Lib
                 RegistryKey regKey = Registry.CurrentUser.OpenSubKey("Software\\illusion\\AA2Play");
                 if (regKey == null)
                 {
-                    string installDir = BrowseInstallDir("AA2Play.exe");
-                    ConfigurationManager.Instance.SetItem("PLAY_INSTALL", installDir);
-                    return installDir;
+                    return CheckInstallDir(GetPlayPath());
                 }
                 string registryDir = (string) regKey.GetValue("INSTALLDIR");
                 regKey.Close();
@@ -572,6 +582,12 @@ namespace AA2Lib
                 string dir = Path.GetDirectoryName(opfl.FileName);
                 return dir;
             }
+            return null;
+        }
+
+        private static string CheckInstallDir(string path)
+        {
+            if (path != null) return path;
             MessageBox.Show("ReiEditAA2 Requires Artificial Academy 2 and Editor Installed in order to function.",
                 "ReiEditAA2 - Error",
                 MessageBoxButton.OK,

@@ -79,9 +79,9 @@ namespace AA2Lib.Code.DataBlocks
         {
             get
             {
-                return IsEnum
-                    ? EnumData[Convert.ToInt32(Value)].Value
-                    : null;
+                if (!IsEnum) return null;
+                if (!EnumData.ContainsKey(Convert.ToInt32(Value))) return null;
+                return EnumData[Convert.ToInt32(Value)].Value;
             }
         }
 
